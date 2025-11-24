@@ -36,13 +36,14 @@ if user_question:
             except Exception as e:
                 st.error(f"정령과의 연결이 끊겼습니다: {e}")
 
-# --- 4. 광고 배너 영역 (여기가 추가된 부분!) ---
-st.write("---") # 구분선
+# --- 4. 광고 배너 영역 (이미지 주소 수정됨!) ---
+st.write("---") 
 st.write("🔮 **이 타로 카드가 마음에 드시나요? 실물로도 만나보세요!**")
 
-# 클릭 가능한 배너 (쿠팡 검색 예시)
+# 클릭 가능한 배너
 link_url = "https://www.coupang.com/np/search?component=&q=타로카드" 
-image_url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-Xn2XyTq7YyXvR7p_Xw&usqp=CAU" 
+# 안정적인 위키백과 타로카드 이미지 사용
+image_url = "https://upload.wikimedia.org/wikipedia/commons/9/90/RWS_Tarot_00_Fool.jpg"
 
 st.markdown(
     f"""
