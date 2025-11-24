@@ -1,32 +1,19 @@
-import streamlit as st
-import openai
+# --- 광고 배너 영역 ---
+st.write("---") # 구분선
 
-st.set_page_config(page_title="🔮 AI 신비의 타로점", page_icon="🔮")
+# 1. 광고 문구
+st.write("🔮 **이 타로 카드가 마음에 드시나요? 실물로도 만나보세요!**")
 
-st.title("🔮 AI 신비의 타로점")
-st.write("고민을 말하면 AI 정령이 타로카드를 뽑아줍니다.")
+# 2. 클릭 가능한 이미지 배너 만들기 (HTML 사용)
+# 아래 링크는 예시입니다. 나중에는 본인의 쿠팡 파트너스 링크로 바꾸세요.
+link_url = "https://www.coupang.com/np/search?component=&q=타로카드" 
+image_url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-Xn2XyTq7YyXvR7p_Xw&usqp=CAU" # 타로카드 이미지 주소
 
-if "OPENAI_API_KEY" in st.secrets:
-    openai.api_key = st.secrets["OPENAI_API_KEY"]
-else:
-    st.error("API 키가 없습니다. 설정에서 키를 넣어주세요!")
-
-user_question = st.text_input("고민을 입력하세요 (예: 저 언제 부자 되나요?)")
-
-if user_question:
-    if not openai.api_key:
-        st.warning("API 키를 먼저 설정해주세요.")
-    else:
-        with st.spinner("운명을 읽는 중..."):
-            try:
-                response = openai.chat.completions.create(
-                    model="gpt-3.5-turbo",
-                    messages=[
-                        {"role": "system", "content": "너는 타로 점술가야. 신비로운 말투로 조언해줘."},
-                        {"role": "user", "content": user_question}
-                    ]
-                )
-                st.success("해석 결과:")
-                st.write(response.choices[0].message.content)
-            except Exception as e:
-                st.error(f"에러 발생: {e}")
+st.markdown(
+    f"""
+    <a href="{link_url}" target="_blank">
+        <img src="{image_url}" width="100%" style="border-radius: 10px;">
+    </a>
+    """,
+    unsafe_allow_html=True
+)
