@@ -53,3 +53,14 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+# --- 광고 배너 설정 ---
+
+# 1. 링크 붙여넣기 (텐핑에서 복사한 주소)
+link_url = "http://tenping.kr/xxxxxx" 
+
+# 2. 이미지 바꾸기 (텐핑 광고랑 어울리는 이미지로)
+# 운세 광고라면 아래 같은 신비한 이미지 그대로 써도 좋습니다.
+image_url = "https://upload.wikimedia.org/wikipedia/commons/9/90/RWS_Tarot_00_Fool.jpg"
+
+# 3. 배너 제목 바꾸기
+st.write("🔮 **더 정확한 2025년 신년 운세가 궁금하다면? (무료 보기)**") # 멘트 수정
