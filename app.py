@@ -1,13 +1,48 @@
-# --- 광고 배너 영역 ---
-st.write("---") # 구분선
+import streamlit as st
+import openai
 
-# 1. 광고 문구
+# --- 1. 기본 설정 ---
+st.set_page_config(page_title="🔮 AI 신비의 타로점", page_icon="🔮")
+
+st.title("🔮 AI 신비의 타로점")
+st.write("당신의 고민을 털어놓으세요. 고대 AI 정령이 답을 드립니다.")
+
+# --- 2. API 키 설정 ---
+if "OPENAI_API_KEY" in st.secrets:
+    openai.api_key = st.secrets["OPENAI_API_KEY"]
+else:
+    st.error("🚨 API 키가 설정되지 않았습니다. 배포 후 설정(Secrets)에 키를 넣어주세요!")
+
+# --- 3. 사용자 입력 및 AI 점술가 로직 ---
+user_question = st.text_input("고민을 입력하고 엔터를 누르세요 (예: 저 언제 부자 되나요?)")
+
+if user_question:
+    if not openai.api_key:
+        st.warning("주인님, API 키를 먼저 설정해야 점을 볼 수 있습니다.")
+    else:
+        with st.spinner("🔮 정령들이 카드를 섞고 있습니다..."):
+            try:
+                response = openai.chat.completions.create(
+                    model="gpt-3.5-turbo",
+                    messages=[
+                        {"role": "system", "content": "너는 신비로운 타로 점술가야. 말투는 '~하게나', '~하는군' 같은 신비로운 말투를 써. 사용자의 고민에 대해 타로 카드 한 장을 무작위로 뽑은 척하고, 그 카드의 의미를 해석해줘. 희망적이지만 뼈 때리는 조언도 섞어서 해줘."},
+                        {"role": "user", "content": user_question}
+                    ]
+                )
+                answer = response.choices[0].message.content
+                st.success("운명의 카드가 뒤집혔습니다!")
+                st.write(answer)
+                st.balloons()
+            except Exception as e:
+                st.error(f"정령과의 연결이 끊겼습니다: {e}")
+
+# --- 4. 광고 배너 영역 (여기가 추가된 부분!) ---
+st.write("---") # 구분선
 st.write("🔮 **이 타로 카드가 마음에 드시나요? 실물로도 만나보세요!**")
 
-# 2. 클릭 가능한 이미지 배너 만들기 (HTML 사용)
-# 아래 링크는 예시입니다. 나중에는 본인의 쿠팡 파트너스 링크로 바꾸세요.
+# 클릭 가능한 배너 (쿠팡 검색 예시)
 link_url = "https://www.coupang.com/np/search?component=&q=타로카드" 
-image_url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-Xn2XyTq7YyXvR7p_Xw&usqp=CAU" # 타로카드 이미지 주소
+image_url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-Xn2XyTq7YyXvR7p_Xw&usqp=CAU" 
 
 st.markdown(
     f"""
